@@ -23,16 +23,12 @@ int main(int argc, char const *argv[])
     int reuse = 1;
     setsockopt(mSocket, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
 
-    // socketAddress
-    // struct sockaddr_in my_addr;
+    // set socketAddress random values to 0 
     memset((char *)&serverAddress, 0, sizeof(serverAddress));
     // assign IP, PORT
     serverAddress.sin_port = htons(PORT);
     serverAddress.sin_addr.s_addr = htonl(INADDR_ANY);
     serverAddress.sin_family = AF_INET;
-    // struct sockaddr_in p_addr;
-
-    //p_addr = &my_addr;
 
     //bind
     int bindValue = bind(mSocket, ((struct sockaddr *)&serverAddress), sizeof(serverAddress));
@@ -64,6 +60,10 @@ int main(int argc, char const *argv[])
         printf("listnening on port 5000...\n");
         mConnection = accept(mSocket, (struct sockaddr *)&clientAddress, &clientLength);
         printf("valeur de accept %d \n", mConnection);
+
+        // TODO get data from socket 
+        // TODO print it
+        // TODO send it back 
     }
 
     return 0;
