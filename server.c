@@ -1,5 +1,5 @@
 #include "server.h"
-#define PORT 5000
+#define PORT 10000
 
 int main(int argc, char const *argv[])
 {
@@ -57,7 +57,7 @@ int main(int argc, char const *argv[])
     //accept
     while (1)
     {
-        printf("listnening on port 5000...\n");
+        printf("listnening on port %d...\n", PORT);
         mConnection = accept(mSocket, (struct sockaddr *)&clientAddress, &clientLength);
         printf("connection accepted...\n");
 
