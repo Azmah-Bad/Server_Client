@@ -5,9 +5,6 @@ int main(int argc, char const *argv[])
 {
     char userInput[100];
 
-    // get user input
-    gets(userInput);
-
     // init the addresses
     struct sockaddr_in serverAddress;
 
@@ -50,7 +47,34 @@ int main(int argc, char const *argv[])
         printf("connected to server...\n");
     }
 
-    printf("connect value: %d\n", connectValue);
+    // get user input
+    gets(userInput);
+
+    //write data into the socket
+    int writeValue = write(clientSocket, userInput, sizeof(userInput));
+    if (writeValue < 0)
+    {
+        printf("writing failed...\nwrite value: %d\n", writeValue);
+        return 1;
+    }
+    else
+    {
+        printf("data written with success 🎉...\n");
+
+        // read data that is comming back from server
+        int readValue = read(clientSocket, userInput, sizeof(userInput));
+        if (readValue < 0)
+        {
+            printf("reading failed...\nread value: %d\n", readValue);
+            return 1;
+        }
+        else
+        {
+            printf("data received from server with success 🎉...\nDATA :");
+            printf("%s", userInput); // print it
+            printf("\n");
+        }
+    }
 
     return 0;
 }

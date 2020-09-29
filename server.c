@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
     int reuse = 1;
     setsockopt(mSocket, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
 
-    // set socketAddress random values to 0 
+    // set socketAddress random values to 0
     memset((char *)&serverAddress, 0, sizeof(serverAddress));
     // assign IP, PORT
     serverAddress.sin_port = htons(PORT);
@@ -59,11 +59,36 @@ int main(int argc, char const *argv[])
     {
         printf("listnening on port %d...\n", PORT);
         mConnection = accept(mSocket, (struct sockaddr *)&clientAddress, &clientLength);
-        printf("connection accepted...\n");
+        printf("connection accepted from %d port %d 👋\n", htonl(clientAddress.sin_addr.s_addr), htons(clientAddress.sin_port));
 
-        // TODO get data from socket 
-        // TODO print it
-        // TODO send it back 
+        char userInput[100];
+
+        // get data from socket
+
+        int readValue = read(mConnection, userInput, sizeof(userInput));
+        if (readValue < 0)
+        {
+            printf("reading failed...\nread value: %d\n", readValue);
+            return 1;
+        }
+        else
+        {
+            printf("data read with success 🎉...\nDATA :");
+            printf("%s", userInput); // print it
+            printf("\n");
+
+            // write data back to client
+            int writeValue = write(mConnection, userInput, sizeof(userInput));
+            if (writeValue < 0)
+            {
+                printf("writing failed...\nwrite value: %d\n", writeValue);
+                return 1;
+            }
+            else
+            {
+                printf("data written back to client with success 🎉...\n");
+            }
+        }
     }
 
     return 0;
