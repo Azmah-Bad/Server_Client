@@ -59,7 +59,7 @@ int main(int argc, char const *argv[])
     {
         printf("listnening on port 5000...\n");
         mConnection = accept(mSocket, (struct sockaddr *)&clientAddress, &clientLength);
-        printf("valeur de accept %d \n", mConnection);
+        printf("connection accepted...\n");
 
         // TODO get data from socket 
         // TODO print it

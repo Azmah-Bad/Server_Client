@@ -7,13 +7,13 @@ server.o: server.c server.h
 	gcc ${CFLAGS} -c server.c  -o server.o
 
 server: server.o
-	gcc ${LDLAGS} server.o -o server
+	gcc ${LDLAGS} server.o -o bin/server
 
 client.o: client.c client.h
 	gcc ${CFLAGS} -c client.c  -o client.o
 
 client: client.o
-	gcc ${LDLAGS} client.o -o client
+	gcc ${LDLAGS} client.o -o bin/client
 
 clean: 
 	\rm -rf *.o server client
