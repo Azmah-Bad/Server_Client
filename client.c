@@ -1,9 +1,17 @@
 #include "client.h"
-#define PORT 10000
 
 int main(int argc, char const *argv[])
-{
+{   
+    if (argc != 3){
+        printf("Error syntax : ./client <ip_server> <port_server>\n");
+        return 1;
+    }
+
+    // get IP andd port from cmd line aregument
+    const char * IP_SERVER = argv[1];
+    int PORT = atoi(argv[2]);
     char userInput[100];
+
 
     // init the addresses
     struct sockaddr_in serverAddress;
@@ -23,13 +31,9 @@ int main(int argc, char const *argv[])
 
     memset((char *)&serverAddress, 0, sizeof(serverAddress));
 
-    // printf("inet_aton: %d\n", inet_aton(cp, &serverAddress));
-    // printf("address: %s\n", address);
-    // printf("my_addr: %d\n", serverAddress.s_addr);
-
     // assign IP, PORT
     serverAddress.sin_port = htons(PORT);
-    serverAddress.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    inet_aton(IP_SERVER,serverAddress.sin_addr.s_addr);
     serverAddress.sin_family = AF_INET;
 
     socklen_t addressLength = sizeof(serverAddress);
