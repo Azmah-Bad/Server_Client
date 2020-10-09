@@ -72,8 +72,10 @@ int main(int argc, char const *argv[])
         if (fork() == 0) // fork to concurrently handle requests 
         {
             // if fork == 0 child process running while parent handles request 
-
             char userInput[100];
+
+            // printf("mSocket: %d\n",mSocket);
+            // printf("mConnection: %d\n",mConnection);
 
             // get data from socket
             int readValue = read(mConnection, userInput, sizeof(userInput));
@@ -100,6 +102,8 @@ int main(int argc, char const *argv[])
                     printf("data written back to client with success 🎉...\n");
                 }
             }
+        } else {
+            
         }
     }
 
