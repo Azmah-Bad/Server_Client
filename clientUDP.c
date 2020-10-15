@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
     struct sockaddr_in serverAddress;
 
     // create socket
-    int clientSocket = socket(PF_INET, SOCK_STREAM, 0);
+    int clientSocket = socket(AF_INET, SOCK_DGRAM, 0);
 
     if (clientSocket == -1)
     {
@@ -34,7 +34,7 @@ int main(int argc, char const *argv[])
     // assign IP, PORT
     serverAddress.sin_port = htons(PORT);
     inet_aton(IP_SERVER,serverAddress.sin_addr.s_addr);
-    serverAddress.sin_family = PF_INET;
+    serverAddress.sin_family = AF_INET;
 
     socklen_t addressLength = sizeof(serverAddress);
 
@@ -52,6 +52,7 @@ int main(int argc, char const *argv[])
     }
 
     // get user input
+    printf("enter data to be sent over\n");
     gets(userInput);
 
     //write data into the socket
@@ -65,20 +66,9 @@ int main(int argc, char const *argv[])
     {
         printf("data written with success 🎉...\n");
 
-        // read data that is comming back from server
-        int readValue = read(clientSocket, userInput, sizeof(userInput));
-        if (readValue < 0)
-        {
-            printf("reading failed...\nread value: %d\n", readValue);
-            return 1;
-        }
-        else
-        {
-            printf("data received from server with success 🎉...\nDATA :");
-            printf("%s", userInput); // print it
-            printf("\n");
-        }
     }
+
+    close(clientSocket);
 
     return 0;
 }

@@ -19,8 +19,8 @@ clientUDP.o: clientUDP.c client.h
 	gcc ${CFLAGS} -c clientUDP.c  -o clientUDP.o
 
 clientUDP: clientUDP.o
-	gcc ${LDLAGS} clientUDP.o -o bin/client
+	gcc ${LDLAGS} clientUDP.o -o bin/clientUDP
 
 
 clean: 
-	\rm -rf *.o server client clientUDP
+	\rm -rf *.o bin/server bin/client bin/clientUDP

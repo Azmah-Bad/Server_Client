@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
 
     // assign IP, PORT
     serverAddress.sin_port = htons(PORT);
-    inet_aton(IP_SERVER,serverAddress.sin_addr.s_addr);
+    inet_aton(IP_SERVER, serverAddress.sin_addr.s_addr);
     serverAddress.sin_family = AF_INET;
 
     socklen_t addressLength = sizeof(serverAddress);
@@ -52,6 +52,7 @@ int main(int argc, char const *argv[])
     }
 
     // get user input
+    printf("enter data to be sent over\n");
     gets(userInput);
 
     //write data into the socket
@@ -74,11 +75,10 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            printf("data received from server with success 🎉...\nDATA :");
-            printf("%s", userInput); // print it
-            printf("\n");
+            printf("data received from server with success 🎉...\nDATA RECIEVED: %s\n", userInput);
         }
     }
+
 
     return 0;
 }
